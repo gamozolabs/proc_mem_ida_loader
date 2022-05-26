@@ -16,6 +16,10 @@ for them with the correct permissions, and apply symbols to them!
 This works for both 32-bit and 64-bit Linux processes. It also works with WINE
 binaries that have 32 or 64-bit PE files (with DWARF symbols).
 
+# Also works with qemu-user processes!
+
+![QEMU user IDA image](/qemuuser.png)
+
 # How does it work?
 
 Simple, it dumps `/proc/<pid>/maps` to get the listing of memory regions for

@@ -1,5 +1,7 @@
 # Summary
 
+![Example image](/example.png)
+
 This IDA loader can snapshot a running 32-bit or 64-bit Linux process, as well
 as 32-bit and 64-bit WINE processes on Linux, load it into IDA with the
 actual processes memory permissions, and then apply DWARF symbols using IDA's

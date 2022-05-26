@@ -141,23 +141,26 @@ def load_file(li, neflags, fmt):
             print(f"/proc/mem DWARF loader: file base: {orig_base:016x} "
                   f"loaded base: {actual_base:016x} {filename}")
 
-            # Get the netnode for DWARF loading parameters
-            node = ida_netnode.netnode("$ dwarf_params")
+            try:
+                # Get the netnode for DWARF loading parameters
+                node = ida_netnode.netnode("$ dwarf_params")
 
-            # Set the filename of the DWARF to load
-            node.supset(1, filename, 83)
+                # Set the filename of the DWARF to load
+                node.supset(1, filename, 83)
 
-            # Set the base to load the DWARF at. It defaults to the
-            # original file base, so we subtract that off, and then compute
-            # the actual base in the memory we dumped
-            node.altset(2, -orig_base + actual_base, 65)
+                # Set the base to load the DWARF at. It defaults to the
+                # original file base, so we subtract that off, and then compute
+                # the actual base in the memory we dumped
+                node.altset(2, -orig_base + actual_base, 65)
 
-            if bitness == 2:
-                # Invoke the DWARF64 plugin to load it!
-                ida_loader.run_plugin(ida_loader.load_plugin("dwarf64"), 3)
-            elif bitness == 1:
-                # Invoke the DWARF32 plugin to load it!
-                ida_loader.run_plugin(ida_loader.load_plugin("dwarf"), 3)
+                if bitness == 2:
+                    # Invoke the DWARF64 plugin to load it!
+                    ida_loader.run_plugin(ida_loader.load_plugin("dwarf64"), 3)
+                elif bitness == 1:
+                    # Invoke the DWARF32 plugin to load it!
+                    ida_loader.run_plugin(ida_loader.load_plugin("dwarf"), 3)
+            except:
+                pass
         else:
             # We cannot load symbols if we don't know the files original base
             print(f"/proc/mem DWARF loader: "
